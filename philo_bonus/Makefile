@@ -1,6 +1,6 @@
 NAME = philo_bonus
 
-SRCS = main_bonus.c
+SRCS = main_bonus.c parser_bonus.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -13,7 +13,7 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	$(CC) $< -o $@
 
-%.o : %.c philo_bonus.h
+%.o : %.c philo_bonus.h error_msgs_bonus.h Makefile
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean :
