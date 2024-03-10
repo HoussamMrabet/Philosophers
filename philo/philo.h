@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:05:39 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/09 10:32:52 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/09 20:16:45 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ struct s_table
 	long	time_to_die;
 	long	rounds;
 	long	init_time;
+	t_bool	finish;
+	t_bool	ready;
 	t_philo	*philos;
 	t_fork	*forks;
 };

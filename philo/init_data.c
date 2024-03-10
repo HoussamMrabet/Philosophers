@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 06:29:03 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/09 10:21:56 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/09 20:19:00 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void init_data(int ac, char **av, t_table *table)
 	table->nbrs_philo = ft_atol(av[1]);
 	table->time_to_die = ft_atol(av[2]);
 	table->rounds = -1;
+	table->ready = FALSE;
+	table->finish = FALSE;
 	table->time_to_eat = ft_atol(av[3]);
 	table->time_to_sleep = ft_atol(av[4]);
 	table->philos = ft_malloc(sizeof(t_philo) * table->nbrs_philo);
