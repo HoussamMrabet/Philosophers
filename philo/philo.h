@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:05:39 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/09 20:16:45 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/10 12:18:48 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_philo
 	pthread_t	thread_id;
 	long		last_time_eat;
 	t_bool		is_dead;
+	long		rounds;
 	t_fork		*left_fork;
 	t_fork		*right_fork;
 	t_table		*table;
@@ -60,6 +61,8 @@ struct s_table
 	long	time_to_die;
 	long	rounds;
 	long	init_time;
+	long	philos_left;
+	t_mtx	printer;
 	t_bool	finish;
 	t_bool	ready;
 	t_philo	*philos;
@@ -70,7 +73,7 @@ struct s_table
 void	*ft_malloc(size_t s);
 void	ft_mutex(t_mtx *mtx, int i);
 void	ft_pthread(pthread_t *thread, void *(*fn) (void *), void *arg, int i);
-int		ft_usleep(size_t milliseconds);
+void	ft_usleep(long usec);
 
 //utils
 size_t	ft_strlen(const char *s);

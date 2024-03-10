@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:12:42 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/09 20:29:05 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/10 12:22:21 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void ft_print(int status, long start, int id)
 {
-	long	timestamp;
+	long timestamp;
 
 	timestamp = get_time() - start;
 	if (status == 1)
@@ -29,9 +29,9 @@ void ft_print(int status, long start, int id)
 		printf("%-6ld %-3d died\n", timestamp, id);
 }
 
-void	ft_exit(t_table *table)
+void ft_exit(t_table *table)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (i < table->nbrs_philo)
@@ -43,56 +43,86 @@ void	ft_exit(t_table *table)
 	exit(SUCCESS);
 }
 
-void	*simulation(void *param)
+void *simulation(void *param)
 {
 	t_philo *philo;
 
 	philo = param;
 	while (!philo->table->ready)
 		;
-	while (!philo->table->finish && philo->table->rounds)
+	if (philo->id % 2)
+		ft_usleep(philo->table->time_to_die / 2);
+	while (!philo->table->finish && philo->rounds)
 	{
+		if (philo->is_dead)
+		{
+			philo->table->finish = TRUE;
+			return (NULL);
+		}
 		ft_mutex(&philo->left_fork->mtx, 2);
 		ft_mutex(&philo->right_fork->mtx, 2);
+		ft_mutex(&philo->table->printer, 2);
 		ft_print(1, philo->table->init_time, philo->id);
+		ft_mutex(&philo->table->printer, 3);
+		ft_mutex(&philo->table->printer, 2);
 		ft_print(1, philo->table->init_time, philo->id);
+		ft_mutex(&philo->table->printer, 3);
+		ft_mutex(&philo->table->printer, 2);
 		ft_print(2, philo->table->init_time, philo->id);
-		usleep(1000 * philo->table->time_to_eat);
+		ft_mutex(&philo->table->printer, 3);
+		ft_usleep(philo->table->time_to_eat);
+		philo->last_time_eat = get_time();
+		ft_mutex(&philo->table->printer, 2);
 		ft_print(3, philo->table->init_time, philo->id);
+		ft_mutex(&philo->table->printer, 3);
 		ft_mutex(&philo->right_fork->mtx, 3);
 		ft_mutex(&philo->left_fork->mtx, 3);
-		usleep(1000 * philo->table->time_to_sleep);
+		ft_usleep(philo->table->time_to_sleep);
+		ft_mutex(&philo->table->printer, 2);
 		ft_print(4, philo->table->init_time, philo->id);
+		ft_mutex(&philo->table->printer, 3);
+		if (philo->rounds != -1)
+			philo->rounds--;
+	}
+	philo->table->philos_left++;
+	return (NULL);
+}
+
+void *checker(void *param)
+{
+	t_table *table;
+	t_philo *philo;
+	int i;
+
+	table = param;
+	philo = table->philos;
+	i = 0;
+	while (!table->finish && table->philos_left < table->nbrs_philo)
+	{
+		if (get_time() - philo->last_time_eat > table->time_to_die)
+		{
+			ft_mutex(&philo->table->printer, 2);
+			ft_print(5, philo->table->init_time, philo->id);
+			ft_mutex(&philo->table->printer, 3);
+			philo->is_dead = TRUE;
+			return (NULL);
+		}
+		philo++;
+		i++;
+		if (i == table->nbrs_philo)
+		{
+			philo = table->philos;
+			i = 0;
+		}
 	}
 	return (NULL);
 }
 
-void	*test1(void *param)
+void dinning(t_table *table)
 {
-	t_table	*table;
-
-	table = param;
-	sleep(5);
-	table->finish = TRUE;
-	return (NULL);
-}
-
-void	*checker(void *param)
-{
-	t_table	*table;
-	
-	table = param;
-	while (!table->finish)
-		;
-	return (NULL);
-}
-
-void	dinning(t_table *table)
-{
-	int			i;
-	t_philo		*philo;
-	pthread_t	monitor;
-	pthread_t	test;
+	int i;
+	t_philo *philo;
+	pthread_t monitor;
 
 	i = 0;
 	philo = table->philos;
@@ -101,7 +131,7 @@ void	dinning(t_table *table)
 	if (table->nbrs_philo == 1)
 	{
 		ft_print(1, table->init_time, 1);
-		usleep(table->time_to_die * 1000);
+		ft_usleep(table->time_to_die * 1000);
 		ft_print(5, table->init_time, 1);
 		ft_exit(table);
 	}
@@ -113,16 +143,14 @@ void	dinning(t_table *table)
 	}
 	table->ready = TRUE;
 	ft_pthread(&monitor, checker, table, 1);
-	ft_pthread(&test, test1, table, 1);
 	ft_pthread(&monitor, NULL, NULL, 2);
-	ft_pthread(&test, NULL, NULL, 2);
 }
 
-void leaks(){system("leaks philo");}
+void leaks() { system("leaks philo"); }
 
-int	main(int ac, char **av)
+int main(int ac, char **av)
 {
-	t_table	table;
+	t_table table;
 
 	// atexit(leaks);
 	parser(ac, av);

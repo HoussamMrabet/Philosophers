@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 06:29:03 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/09 20:19:00 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/10 12:18:42 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,12 @@ static void init_philos(t_table *table)
 		philo->is_dead = FALSE;
 		philo->last_time_eat = get_time();
 		philo->table = table;
+		philo->rounds = table->rounds;
 		get_forks(philo, table->forks, i);
 		i++;
 	}
+	philo = table->philos + i;
+	philo = NULL;
 }
 
 void init_data(int ac, char **av, t_table *table)
@@ -63,11 +66,13 @@ void init_data(int ac, char **av, t_table *table)
 	table->rounds = -1;
 	table->ready = FALSE;
 	table->finish = FALSE;
+	table->philos_left = 0;
 	table->time_to_eat = ft_atol(av[3]);
 	table->time_to_sleep = ft_atol(av[4]);
 	table->philos = ft_malloc(sizeof(t_philo) * table->nbrs_philo);
 	table->forks = ft_malloc(sizeof(t_fork) * table->nbrs_philo);
 	table->init_time = get_time();
+	ft_mutex(&table->printer, 1);
 	(ac == 6) && (table->rounds = ft_atol(av[5]));
 	init_forks(table);
 	init_philos(table);

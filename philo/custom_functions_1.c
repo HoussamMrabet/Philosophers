@@ -6,18 +6,29 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 23:26:52 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/02 09:16:06 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/10 12:17:57 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_usleep(size_t milliseconds)
+void    ft_usleep(long usec)
 {
-	size_t	start;
+    long    start_time;
+    long    target_time;
+    long    curr_time;
+    long    rem_time;
 
-	start = get_time();
-	while ((get_time() - start) < milliseconds)
-		usleep(500);
-	return (0);
+    start_time = get_time();
+    if (start_time == -1)
+        return ;
+    target_time = start_time + usec;
+    curr_time = get_time();
+    while (curr_time != -1 && curr_time < target_time)
+    {
+        rem_time = (target_time - curr_time) / 2;
+        if (rem_time > 1)
+            usleep(rem_time * 1000);
+        curr_time = get_time();
+    }
 }
