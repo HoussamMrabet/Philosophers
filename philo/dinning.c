@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:37:03 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/10 16:38:02 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/10 17:47:06 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	dinning(t_table *table)
 	while (i < table->nbrs_philo)
 	{
 		ft_pthread(&philo->thread_id, simulation, philo, 1);
+		ft_pthread(&philo->thread_id, NULL, NULL, 3);
 		philo++;
 		i++;
 	}
