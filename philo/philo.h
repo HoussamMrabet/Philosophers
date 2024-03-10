@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:05:39 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/10 12:18:48 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/10 16:38:39 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_philo
 	long		last_time_eat;
 	t_bool		is_dead;
 	long		rounds;
+	t_bool		actif;
 	t_fork		*left_fork;
 	t_fork		*right_fork;
 	t_table		*table;
@@ -62,7 +63,6 @@ struct s_table
 	long	rounds;
 	long	init_time;
 	long	philos_left;
-	t_mtx	printer;
 	t_bool	finish;
 	t_bool	ready;
 	t_philo	*philos;
@@ -74,6 +74,7 @@ void	*ft_malloc(size_t s);
 void	ft_mutex(t_mtx *mtx, int i);
 void	ft_pthread(pthread_t *thread, void *(*fn) (void *), void *arg, int i);
 void	ft_usleep(long usec);
+void	ft_print(int status, long start, int id);
 
 //utils
 size_t	ft_strlen(const char *s);
@@ -85,9 +86,12 @@ char	*ft_strchr(const char *s, int c);
 long	get_time(void);
 void	ft_putstr_fd(char *msg, int fd);
 void	ft_error(char *err);
+void	ft_exit(t_table *table);
 
 void	parser(int ac, char **av);
 
 void	init_data(int ac, char **av, t_table *data);
+
+void	dinning(t_table *table);
 
 #endif

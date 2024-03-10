@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:06:25 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/02 09:17:58 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/10 16:33:19 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,18 @@ void	ft_error(char *err)
 	ft_putstr_fd(RED"Error :\n"RESET" -> ", 2);
 	ft_putstr_fd(err, 2);
 	exit(FAILED);
+}
+
+void	ft_exit(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table->nbrs_philo)
+	{
+		free(table->philos + i);
+		free(table->forks + i);
+		i++;
+	}
+	exit(SUCCESS);
 }
