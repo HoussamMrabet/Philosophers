@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:05:39 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/11 14:35:11 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/12 01:08:44 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	*ft_malloc(size_t s, t_philo *philos);
 void	ft_mutex(t_mtx *mtx, int i);
 void	ft_pthread(pthread_t *thread, void *(*fn) (void *), void *arg, int i);
 void	ft_usleep(long usec);
-void	ft_print(int status, long start, int id, t_bool writer, t_mtx write_access);
+void	ft_print(int status, t_philo *philo, t_bool writer);
 
 //utils
 size_t	ft_strlen(const char *s);
@@ -91,10 +91,19 @@ void	ft_putstr_fd(char *msg, int fd);
 void	ft_error(char *err);
 void	ft_exit(t_table *table);
 
+//booleans
+t_bool	is_died(t_philo *philo);
+t_bool	is_actif(t_philo *philo);
+t_bool	is_finished(t_table *table);
+t_bool	is_full(t_table *table);
+t_bool	is_ready(t_philo *philo);
+t_bool	is_empty(t_table *table);
+
+//philo
 void	parser(int ac, char **av);
-
 void	init_data(int ac, char **av, t_table *data);
-
 void	dinning(t_table *table);
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
 
 #endif
