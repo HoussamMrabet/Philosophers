@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 06:29:03 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/10 16:29:33 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/11 12:49:11 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void	init_philos(t_table *table)
 		philo->table = table;
 		philo->rounds = table->rounds;
 		philo->actif = TRUE;
+		ft_mutex(&philo->philo_access, 1);
 		get_forks(philo, table->forks, i);
 		i++;
 	}
@@ -70,8 +71,10 @@ void	init_data(int ac, char **av, t_table *table)
 	table->philos_left = 0;
 	table->time_to_eat = ft_atol(av[3]);
 	table->time_to_sleep = ft_atol(av[4]);
-	table->philos = ft_malloc(sizeof(t_philo) * table->nbrs_philo);
-	table->forks = ft_malloc(sizeof(t_fork) * table->nbrs_philo);
+	ft_mutex(&table->write_access, 1);
+	ft_mutex(&table->table_access, 1);
+	table->philos = ft_malloc(sizeof(t_philo) * table->nbrs_philo, NULL);
+	table->forks = ft_malloc(sizeof(t_fork) * table->nbrs_philo, table->philos);
 	table->init_time = get_time();
 	(ac == 6) && (table->rounds = ft_atol(av[5]));
 	init_forks(table);
