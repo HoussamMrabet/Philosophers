@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:06:25 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/20 14:52:50 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/25 10:26:30 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,29 @@ void	ft_error(char *err)
 	exit(FAILED);
 }
 
-void	ft_exit(t_table *table)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	free(table->philos);
-	exit(SUCCESS);
+	char	*str;
+	size_t	i;
+	size_t	j;
+
+	if (!s1 || !s2)
+		return (NULL);
+	i = 0;
+	j = 0;
+	str = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!str)
+		return (NULL);
+	while (*(s1 + i))
+	{
+		*(str + i) = *(s1 + i);
+		i++;
+	}
+	while (*(s2 + j))
+	{
+		*(str + i + j) = *(s2 + j);
+		j++;
+	}
+	*(str + i + j) = '\0';
+	return (str);
 }

@@ -1,18 +1,6 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/03/25 07:24:31 by hmrabet           #+#    #+#              #
-#    Updated: 2024/03/25 07:24:32 by hmrabet          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = philo_bonus
 
-SRCS = main_bonus.c utils-0_bonus.c utils-1_bonus.c custom_functions_0_bonus.c custom_functions_1_bonus.c parser_bonus.c init_data_bonus.c
+SRCS = main_bonus.c utils-0_bonus.c utils-1_bonus.c custom_functions_0_bonus.c custom_functions_1_bonus.c parser_bonus.c init_data_bonus.c itoa.c booleans_bonus.c dinning-0_bonus.c dinning-1_bonus.c
 
 OBJS = $(SRCS:.c=.o)
 

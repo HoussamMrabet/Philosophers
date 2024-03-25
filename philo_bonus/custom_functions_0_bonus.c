@@ -6,22 +6,19 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:08:07 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/20 15:55:32 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/25 09:37:52 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	*ft_malloc(size_t s, t_philo *philo)
+void	*ft_malloc(size_t s)
 {
 	void	*res;
 
 	res = malloc(s);
 	if (!res)
-	{
-		free(philo);
-		exit(FAILED);
-	}
+		return (NULL);
 	return (res);
 }
 
