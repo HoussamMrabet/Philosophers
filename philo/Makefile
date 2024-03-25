@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/03/25 07:28:13 by hmrabet           #+#    #+#              #
+#    Updated: 2024/03/25 07:28:14 by hmrabet          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = philo
 
 SRCS = main.c utils-0.c utils-1.c custom_functions_0.c custom_functions_1.c parser.c init_data.c dinning-0.c dinning-1.c booleans-0.c booleans-1.c
