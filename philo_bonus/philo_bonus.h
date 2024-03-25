@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:05:39 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/25 12:57:55 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/25 16:19:14 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	*ft_malloc(size_t s);
 void	ft_pthread(pthread_t *thread, void *(*fn) (void *), void *arg, int i);
 void	ft_semaphores(void *arg, int i);
 void	ft_usleep(long usec);
-void	ft_print(int status, t_table *table, t_bool writer);
+void	ft_print(int status, t_table *table);
 
 //utils
 size_t	ft_strlen(const char *s);

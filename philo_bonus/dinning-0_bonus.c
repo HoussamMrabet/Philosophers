@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:52:05 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/25 13:01:22 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/25 16:19:23 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ static void	routine(t_table *table, int id)
 	while (!is_finished(table))
 	{
 		eating(table);
-		ft_print(3, table, death_checker());
+		ft_print(3, table);
 		ft_usleep(table->time_to_sleep);
-		ft_print(4, table, death_checker());
+		ft_print(4, table);
 	}
 	ft_pthread(&table->monitor, NULL, NULL, 2);
 	ft_semaphores(table->philo.philo_access, 4);
