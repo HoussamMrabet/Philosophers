@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/24 07:25:10 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/02/24 07:25:32 by hmrabet          ###   ########.fr       */
+/*   Created: 2024/02/07 16:37:50 by hmrabet           #+#    #+#             */
+/*   Updated: 2024/03/12 15:18:39 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	ft_checkchars(char *tmp)
 	return (0);
 }
 
-static void	check_arguments(char **av, char *tmp, long arg1)
+static void	check_arguments(char **av, char *tmp)
 {
 	int		i;
 
@@ -69,11 +69,12 @@ static void	check_arguments(char **av, char *tmp, long arg1)
 		tmp = ft_strtrim(av[i], " \n\t");
 		if (ft_checkchars(tmp) || strlen_nbr(tmp) > 11
 			|| ft_atol(tmp) > INT_MAX
-			|| (i != 5 && ft_atol(tmp) < 60))
+			|| (i != 5 && ft_atol(tmp) < 60)
+			|| (i == 5 && ft_atol(tmp) < 0))
 		{
 			free(tmp);
 			if (i == 5)
-				ft_error(MEAL_ARG1 MEAL_ARG1);
+				ft_error(MEAL_ARG1 MEAL_ARG2);
 			else
 				ft_error(TIME_ARG1 TIME_ARG2);
 		}
@@ -85,13 +86,13 @@ void	parser(int ac, char **av)
 {
 	char	*tmp;
 	long	arg1;
+	long	arg5;
 
 	if (ac > 6)
 		ft_error("too many arguments!\n");
 	if (ac < 5)
 		ft_error("too few arguments!\n");
-	tmp = ft_strtrim(av[1], " \n\t");
-	arg1 = ft_atol(tmp);
+	(1) && (tmp = ft_strtrim(av[1], " \n\t"), arg1 = ft_atol(tmp), arg5 = 1);
 	if (ft_checkchars(tmp) || strlen_nbr(tmp) > 11
 		|| arg1 > INT_MAX || arg1 < 0)
 	{
@@ -99,7 +100,13 @@ void	parser(int ac, char **av)
 		ft_error("invalid number of philosophers\n");
 	}
 	free(tmp);
-	check_arguments(av, tmp, arg1);
-	if (!arg1)
+	check_arguments(av, tmp);
+	if (ac == 6)
+	{
+		tmp = ft_strtrim(av[5], " \n\t");
+		arg5 = ft_atol(tmp);
+		free(tmp);
+	}
+	if (!arg1 || !arg5)
 		exit(SUCCESS);
 }

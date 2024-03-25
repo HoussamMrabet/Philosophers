@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/24 07:29:19 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/02/24 07:29:40 by hmrabet          ###   ########.fr       */
+/*   Created: 2024/02/08 15:06:25 by hmrabet           #+#    #+#             */
+/*   Updated: 2024/03/20 14:52:50 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ long	ft_atol(char *str)
 	return (sign * res);
 }
 
+long	get_time(void)
+{
+	struct timeval	t;
+
+	if (gettimeofday(&t, NULL))
+		return (0);
+	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
+}
+
 void	ft_putstr_fd(char *msg, int fd)
 {
 	int	i;
@@ -55,4 +64,10 @@ void	ft_error(char *err)
 	ft_putstr_fd(RED"Error :\n"RESET" -> ", 2);
 	ft_putstr_fd(err, 2);
 	exit(FAILED);
+}
+
+void	ft_exit(t_table *table)
+{
+	free(table->philos);
+	exit(SUCCESS);
 }
