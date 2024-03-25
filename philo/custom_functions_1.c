@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 23:26:52 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/12 00:53:33 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/25 06:54:00 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,11 @@
 
 void	ft_usleep(long usec)
 {
-	long	start_time;
-	long	target_time;
-	long	curr_time;
-	long	rem_time;
+	long	start;
 
-	start_time = get_time();
-	if (start_time == -1)
-		return ;
-	target_time = start_time + usec;
-	curr_time = get_time();
-	while (curr_time != -1 && curr_time < target_time)
-	{
-		rem_time = (target_time - curr_time) / 2;
-		if (rem_time > 1)
-			usleep(rem_time * 1000);
-		curr_time = get_time();
-	}
+	start = get_time();
+	while ((get_time() - start) < usec)
+		usleep(500);
 }
 
 void	ft_print(int status, t_philo *philo, t_bool wr)
