@@ -6,25 +6,11 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 06:29:03 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/11 12:49:11 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:16:38 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static void	get_forks(t_philo *philo, t_fork *forks, int philo_id)
-{
-	if (!(philo->id % 2))
-	{
-		philo->left_fork = &forks[philo_id];
-		philo->right_fork = &forks[(philo_id + 1) % philo->table->nbrs_philo];
-	}
-	else
-	{
-		philo->left_fork = &forks[(philo_id + 1) % philo->table->nbrs_philo];
-		philo->right_fork = &forks[philo_id];
-	}
-}
 
 static void	init_forks(t_table *table)
 {
@@ -54,7 +40,8 @@ static void	init_philos(t_table *table)
 		philo->rounds = table->rounds;
 		philo->actif = TRUE;
 		ft_mutex(&philo->philo_access, 1);
-		get_forks(philo, table->forks, i);
+		philo->right_fork = &table->forks[i];
+		philo->left_fork = &table->forks[(i + 1) % philo->table->nbrs_philo];
 		i++;
 	}
 	philo = table->philos + i;
@@ -65,12 +52,12 @@ void	init_data(int ac, char **av, t_table *table)
 {
 	table->nbrs_philo = ft_atol(av[1]);
 	table->time_to_die = ft_atol(av[2]);
+	table->time_to_eat = ft_atol(av[3]);
+	table->time_to_sleep = ft_atol(av[4]);
 	table->rounds = -1;
 	table->ready = FALSE;
 	table->finish = FALSE;
 	table->philos_left = 0;
-	table->time_to_eat = ft_atol(av[3]);
-	table->time_to_sleep = ft_atol(av[4]);
 	ft_mutex(&table->write_access, 1);
 	ft_mutex(&table->table_access, 1);
 	table->philos = ft_malloc(sizeof(t_philo) * table->nbrs_philo, NULL);
