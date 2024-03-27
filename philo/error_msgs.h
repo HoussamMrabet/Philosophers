@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 08:59:39 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/12 15:47:06 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/27 16:03:14 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // PARSING ERRORS
 # define MEAL_ARG1 "the number of times each philosopher "
 # define MEAL_ARG2 "must eat should be positive\n"
-# define TIME_ARG1 "time values should be valid number and lower "
+# define TIME_ARG1 "time values should be valid number and not lower "
 # define TIME_ARG2 "than 60 ms or upper than INT_MAX\n"
 
 // MUTEX ERRORS
