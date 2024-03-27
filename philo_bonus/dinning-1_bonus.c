@@ -6,13 +6,13 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:54:36 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/25 16:18:57 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:54:46 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-static int_fast16_t	end_simulation(t_table *table)
+static int	end_simulation(t_table *table)
 {
 	if (is_died(table) && !death_checker())
 	{

@@ -6,7 +6,7 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 12:52:05 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/25 16:19:23 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:45:56 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static void	set_philo(t_table *table, int id)
 	sem_name = get_sem_name(id);
 	if (sem_name == NULL)
 		exit(FAILED);
-	sem_unlink(sem_name);
+	ft_semaphores(sem_name, 3);
 	table->philo.philo_access = sem_open(sem_name, O_CREAT, 0777, 1);
-	sem_unlink(sem_name);
+	ft_semaphores(sem_name, 3);
 	free(sem_name);
 	ft_semaphores(table->philo.philo_access, 2);
 	table->philo.last_time_eat = get_time();
@@ -66,7 +66,7 @@ static void	routine(t_table *table, int id)
 	}
 	ft_pthread(&table->monitor, NULL, NULL, 2);
 	ft_semaphores(table->philo.philo_access, 4);
-	exit(0);
+	exit(SUCCESS);
 }
 
 void	dinning(t_table *table)

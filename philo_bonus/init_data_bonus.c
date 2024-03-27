@@ -6,11 +6,19 @@
 /*   By: hmrabet <hmrabet@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:39:51 by hmrabet           #+#    #+#             */
-/*   Updated: 2024/03/25 12:48:40 by hmrabet          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:45:14 by hmrabet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+static void	unlinks(void)
+{
+	ft_semaphores("/death", 3);
+	ft_semaphores("/forks", 3);
+	ft_semaphores("/write", 3);
+	ft_semaphores("/checker", 3);
+}
 
 static void	clean_exit(sem_t *forks, sem_t *write)
 {
@@ -19,15 +27,8 @@ static void	clean_exit(sem_t *forks, sem_t *write)
 	if (forks)
 		ft_semaphores(forks, 4);
 	ft_putstr_fd("SEM FAILED\n", 2);
+	unlinks();
 	exit(FAILED);
-}
-
-static void	unlinks(void)
-{
-	sem_unlink("/death");
-	sem_unlink("/forks");
-	sem_unlink("/write");
-	sem_unlink("/checker");
 }
 
 static void	init_semaphores(t_table *table)
